@@ -87,3 +87,20 @@ const res = await httpPost<ResponseType>('/api endpoint', data, { meta: { ignore
 - 用户管理
 - 多级菜单导航
 - Ant Design Vue 组件示例
+
+```
+"scripts": {
+    "dev": "tsx scripts/cli.ts --mode=dev",
+    "build": "tsx scripts/cli.ts --mode=build",
+    "serve": "tsx scripts/cli.ts --mode=serve",
+    "lint": "run-s lint:tsc lint:eslint lint:stylelint",
+    "lint:tsc": "pnpm --filter './apps/*' -r run lint",
+    "lint:eslint": "eslint . --cache --fix",
+    "lint:stylelint": "stylelint \"{apps,packages}/**/*.{css,scss,vue}\" --cache --fix",
+    "preinstall": "npx only-allow pnpm",
+    "postinstall": "pnpm -r run stub --if-present && simple-git-hooks",
+    "taze": "taze minor -wIr",
+    "commit": "git cz",
+    "release": "bumpp"
+  },
+  ```

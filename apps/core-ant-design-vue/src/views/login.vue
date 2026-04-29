@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { diffTwoObj } from '@fantastic-admin/settings'
 import Login from '@/components/AppAccountForm/login.vue'
-import Register from '@/components/AppAccountForm/register.vue'
-import ResetPassword from '@/components/AppAccountForm/reset-password.vue'
 import ColorScheme from '@/layouts/components/Topbar/Toolbar/ColorScheme/index.vue'
 import settingsDefault from '@/settings'
 
@@ -16,11 +14,8 @@ const appSettingsStore = useAppSettingsStore()
 
 const redirect = ref(route.query.redirect?.toString() ?? appSettingsStore.settings.app.home.fullPath)
 
-// 布局对齐方式
 const layoutAlign = ref<'left' | 'center' | 'right'>('center')
-// 表单相关
 const account = ref<string>()
-const formType = ref<'login' | 'register' | 'resetPassword'>('login')
 
 function handleLogin() {
   const data = diffTwoObj(settingsDefault, appSettingsStore.settings)
@@ -56,31 +51,16 @@ function handleLogin() {
     <ColorScheme v-if="appSettingsStore.settings.toolbar.colorScheme" />
   </div>
   <div class="login-box" :class="layoutAlign">
-    <div class="login-banner">
-      <img src="@/assets/images/logo.svg" class="rounded h-8 inset-s-4 inset-t-4 absolute">
-      <img src="@/assets/images/login-banner.png" class="banner">
-      <AppCopyright v-if="appSettingsStore.mode === 'pc' && ['left', 'right'].includes(layoutAlign)" class="w-full bottom-0 absolute" />
+    <div class="login-banner flex flex-center">
+      <h1 class="text-4xl font-bold">Ad2x Admin</h1>
+<!--
+      <AppCopyright v-if="appSettingsStore.mode === 'pc' && ['left', 'right'].includes(layoutAlign)" class="w-full bottom-0 absolute" /> -->
     </div>
     <div class="login-form flex-col-center">
       <div class="w-full">
         <Login
-          v-if="formType === 'login'"
           :account
           @on-login="handleLogin"
-          @on-register="(val) => { formType = 'register'; account = val }"
-          @on-reset-password="(val) => { formType = 'resetPassword'; account = val }"
-        />
-        <Register
-          v-else-if="formType === 'register'"
-          :account
-          @on-register="(val) => { formType = 'login'; account = val }"
-          @on-login="formType = 'login'"
-        />
-        <ResetPassword
-          v-else
-          :account
-          @on-reset-password="(val) => { formType = 'login'; account = val }"
-          @on-login="formType = 'login'"
         />
       </div>
     </div>
