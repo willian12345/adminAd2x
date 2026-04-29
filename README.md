@@ -1,61 +1,89 @@
-**中文** | [English](./README.EN.md)
-<img src="https://fantastic-admin.hurui.me/logo.svg" align="right" width="80" height="80" alt="logo" />
+# Admin - AD2X
 
-# Fantastic-admin
+基于 Vue 3 + TypeScript + Vite 的后台管理框架，内置 Ant Design Vue 组件库。
 
-面向 **AI** 的管理系统框架
+## 技术栈
 
-<p>
-  <a href="https://fantastic-admin.hurui.me" target="_blank">官网</a>
-  <span>&nbsp;|&nbsp;</span>
-  <a href="https://fantastic-admin.pages.dev" target="_blank">备用地址</a>
-</p>
+- **框架**: Vue 3.6 + TypeScript + Vite 8
+- **UI 组件**: Ant Design Vue 4.x
+- **状态管理**: Pinia + pinia-plugin-persistedstate
+- **路由**: Vue Router 5
+- **HTTP**: Alova + Axios
+- **样式**: UnoCSS（原子化 CSS）+ SCSS
+- **包管理器**: pnpm
 
-<p>
-  <a href="###"><img src="https://img.shields.io/github/license/fantastic-admin/basic?label=%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE&style=flat-square" alt="" /></a>
-  <a href="https://github.com/fantastic-admin/basic/releases" target="_blank"><img src="https://img.shields.io/github/v/release/fantastic-admin/basic?label=%E5%BD%93%E5%89%8D%E7%89%88%E6%9C%AC&style=flat-square" alt="" /></a>
-</p>
+## 目录结构
 
-![hero](https://fantastic-admin.hurui.me/hero_preview.png)
+```
+├── apps/
+│   └── core-ant-design-vue/     # 主应用
+│       └── src/
+│           ├── api/             # API 请求模块
+│           │   └── modules/     # 按业务模块拆分的 API
+│           ├── assets/          # 静态资源
+│           ├── components/      # 全局业务组件
+│           ├── composables/     # 组合式函数
+│           ├── layouts/         # 布局组件
+│           ├── router/         # 路由配置
+│           │   └── modules/    # 路由模块
+│           ├── store/          # Pinia store
+│           ├── types/          # TypeScript 类型定义
+│           ├── ui/             # UI 组件
+│           ├── utils/          # 工具函数
+│           └── views/          # 页面视图
+└── packages/                    # 框架子包（共享）
+```
 
-## 特点
+## 开发
 
-> 部分为专业版能力
+```bash
+# 安装依赖
+pnpm install
 
-- AI 友好的工程底座，内置多个 Skills
-- 一流的技术栈：Vue 3.6 / Vite 8 / Pinia / UnoCSS / VueUse / TypeScript / ESLint / Stylelint / ...
-- 自由选择喜爱的 UI 库，默认 Element Plus
-- 8 套默认主题方案且可扩展，给不同行业提供专属品牌气质
-- 7 款导航菜单模式，匹配产品发展的各个阶段
-- 精细可控的页面保活策略
-- 全方位权限验证
-- 国际化、RTL支持
-- 19 处预留插槽，灵活扩展产品内容
+# 启动开发服务器
+pnpm dev
 
-## 下载
+# 构建生产版本
+pnpm build
 
-> 本仓库为基础版
+# 代码检查
+pnpm lint
+```
 
-直接拉取源码可能会包含未发布的内容，推荐去 [Github Releases](https://github.com/fantastic-admin/basic/releases) 页面下载稳定版本的压缩包。
+## 路由说明
 
-## 支持
+路由配置文件位于 `src/router/routes.ts`，业务路由模块放在 `src/router/modules/` 目录下。
 
-如果觉得 Fantastic-admin 这个框架不错，或者已经在使用了，希望你可以在 **Github** / **Gitee** / **GitCode** 帮我点个 ⭐ ，这将对本产品的推广有极大帮助。
+创建新页面示例：
 
-[![star](https://img.shields.io/github/stars/fantastic-admin/basic?style=social)](https://github.com/fantastic-admin/basic)
+1. 在 `src/views/` 下创建页面组件
+2. 在 `src/router/modules/` 下创建路由模块
+3. 在 `src/router/routes.ts` 的 `asyncRoutes` 中注册路由模块
 
-[![star](https://gitee.com/fantastic-admin/basic/badge/star.svg?theme=dark)](https://gitee.com/fantastic-admin/basic)
+## 接口说明
 
-[![star](https://atomgit.com/fantastic-admin/basic/star/badge.svg)](https://atomgit.com/fantastic-admin/basic)
+API 模块位于 `src/api/modules/`，使用 Alova 进行请求管理。
 
-<details>
-<summary>Github Stars 曲线</summary>
+常用命令：
 
-[![Stargazers over time](https://starchart.cc/fantastic-admin/basic.svg)](https://starchart.cc/fantastic-admin/basic)
-</details>
+```typescript
+import { httpGet, httpPost } from '@/api'
 
-## 生态
+// GET 请求
+const res = await httpGet<ResponseType>('/api endpoint', { params: {} })
 
-- [`Fantastic-startkit`](https://hooray.github.io/fantastic-startkit/) - 简单好用的 Vue3 项目启动套件
-- [`Fantastic-mobile`](https://fantastic-mobile.hurui.me/) - 让你的 H5 项目拥有稳固的工程底座
-- [`One-step-admin`](https://one-step-admin.hurui.me) - 干啥都快人一步的 Vue 中后台管理系统框架
+// POST 请求
+const res = await httpPost<ResponseType>('/api endpoint', data, { meta: { ignoreToken: true } })
+```
+
+## 环境变量
+
+开发环境配置文件：`.env.development`
+生产环境配置：`.env.production`
+测试环境配置：`.env.test`
+
+## 功能模块
+
+- 用户管理
+- 多级菜单导航
+- Ant Design Vue 组件示例
