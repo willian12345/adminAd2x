@@ -22,11 +22,12 @@ const jsonPlaceholder = `请粘贴 JSON 数据，例如:
 const rules = [
   {
     validator: (_: any, value: string) => {
-      if (!value) {
-        return Promise.reject(new Error('请输入 JSON 数据'))
+      const trimmed = (value || '').trim()
+      if (!trimmed) {
+        return Promise.resolve()
       }
       try {
-        JSON.parse(value)
+        JSON.parse(trimmed)
         return Promise.resolve()
       }
       catch {
@@ -41,8 +42,12 @@ async function handleSubmit() {
     await formRef.value.validate()
     loading.value = true
     const parsedData = JSON.parse(jsonData.value)
-    await ImportTiktokBatch(parsedData)
-    message.success('导入成功！')
+    const res = await ImportTiktokBatch(parsedData)
+    if(res.code !== 0){
+      message.error(`导入失败: ${res.msg || '未知错误'}`)
+      return
+    }
+    message.success(`导入成功！`)
     jsonData.value = ''
   }
   catch (error: any) {
@@ -83,6 +88,7 @@ async function handleSubmit() {
               ref="formRef"
               layout="vertical"
               class="w-full"
+              :model="{ jsonData }"
               @finish="handleSubmit"
             >
               <AFormItem name="jsonData" :rules="rules">

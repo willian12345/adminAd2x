@@ -83,7 +83,12 @@ export interface RechargeResponse {
 export const rechargeBalance = (data: RechargeRequest) => {
   return httpPost<RechargeResponse>('/v1/balance/recharge', data);
 };
-
+// 充值记录列表
+export const getRechargeRecords = (params?: { page?: number; page_size?: number }) => {
+  return httpGet<{ list: RechargeRecord[]; page_info?: { total: number } }>(`/v1/balance/all/records`, {
+    params
+  });
+};
 
 // 财务汇总
 export interface FinanceFilters {
@@ -105,7 +110,7 @@ export const getFinanceSpends = (params?: FinanceFilters & { txn_no?: string }) 
 };
 
 // 充值明细
-export const getFinanceRecharges = (params?: FinanceFilters & { txn_no?: string }) => {
-  return httpGet<{list: RechargeItem[], page_info?: TPageInfo}>('/v1/finance/recharges', { params });
-};
+// export const getFinanceRecharges = (params?: FinanceFilters & { txn_no?: string }) => {
+//   return httpGet<{list: RechargeItem[], page_info?: TPageInfo}>('/v1/finance/recharges', { params });
+// };
 

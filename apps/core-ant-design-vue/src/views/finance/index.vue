@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import type { TableProps } from 'ant-design-vue'
-import { getFinanceRecharges, getFinanceSpends, rechargeBalance } from '@/api/modules/balance'
+import { getFinanceSpends, getRechargeRecords, rechargeBalance } from '@/api/modules/balance'
 import { usePagination } from '@/api/index'
 import { useAdvertiserSelect } from '@/composables/app/useAdvertiser'
 import type { RechargeItem, SpendItem } from '@/api/modules/balance'
 import { message } from 'ant-design-vue'
 import type { FormInstance } from 'ant-design-vue'
+import dayjs from 'dayjs'
 
 const activeTab = ref<'recharges' | 'spends'>('recharges')
 
@@ -19,7 +20,7 @@ const {
   update: updateRecharge,
 } = usePagination<RechargeItem>(
   (page, pageSize) => {
-    return getFinanceRecharges({ page, page_size: pageSize })
+    return getRechargeRecords({ page, page_size: pageSize })
   },
   {
     initialPage: 1,
@@ -150,11 +151,14 @@ const rechargeColumns: TableProps['columns'] = [
     dataIndex: 'created_at',
     key: 'created_at',
     width: 180,
+    customRender: ({ text }: { text: string }) => {
+      return dayjs(text).format('YYYY-MM-DD HH:mm:ss')
+    },
   },
   {
     title: '备注',
-    dataIndex: 'note',
-    key: 'note',
+    dataIndex: 'remark',
+    key: 'remark',
     ellipsis: true,
   },
 ]
