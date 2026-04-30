@@ -13,7 +13,7 @@ export const loginAPI = (email: string, password: string, fullName?: string) => 
       is_sub_account?: boolean;
       parent_user_id?: string;
     };
-  }>('/v1/auth/login', {
+  }>('/v1/auth/admin_login', {
     full_name: fullName || 'User', // 如果没有提供full_name，使用默认值
     email,
     password,

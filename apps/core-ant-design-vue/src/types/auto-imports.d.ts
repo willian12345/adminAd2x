@@ -68,6 +68,7 @@ declare global {
   const toValue: typeof import('vue').toValue
   const triggerRef: typeof import('vue').triggerRef
   const unref: typeof import('vue').unref
+  const useAdvertiserSelect: typeof import('../composables/app/useAdvertiser').useAdvertiserSelect
   const useAppAccountStore: typeof import('../store/modules/app/account').useAppAccountStore
   const useAppAuth: typeof import('../composables/app/auth').useAppAuth
   const useAppKeepAliveStore: typeof import('../store/modules/app/keepAlive').useAppKeepAliveStore

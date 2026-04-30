@@ -4,6 +4,8 @@ import pinia from '@/store'
 import AntDesignVueExample from './modules/ant.design.vue.example'
 import MultilevelMenuExample from './modules/multilevel.menu.example'
 import User from './modules/user'
+import DataImport from './modules/data-import'
+import Finance from './modules/finance'
 
 // 固定路由（默认路由）
 const constantRoutes: RouteRecordRaw[] = [
@@ -32,6 +34,7 @@ const systemRoutes: RouteRecordRaw[] = [
     component: () => import('@/layouts/index.vue'),
     meta: {
       breadcrumb: false,
+      menu: false,
     },
     children: [
       {
@@ -60,29 +63,29 @@ const systemRoutes: RouteRecordRaw[] = [
 const asyncRoutes: RouteRecordMainRaw[] = [
   {
     meta: {
-      title: '演示',
-      icon: 'i-ri:function-ai-line',
-    },
-    children: [
-      MultilevelMenuExample,
-    ],
-  },
-  {
-    meta: {
-      title: 'UI',
-      icon: 'i-whh:jqueryui',
-    },
-    children: [
-      AntDesignVueExample,
-    ],
-  },
-  {
-    meta: {
       title: '用户管理',
       icon: 'i-heroicons-solid:users',
     },
     children: [
       User,
+    ],
+  },
+  {
+    meta: {
+      title: '数据导入',
+      icon: 'i-heroicons-solid:arrow-up-tray',
+    },
+    children: [
+      DataImport,
+    ],
+  },
+  {
+    meta: {
+      title: '财务管理',
+      icon: 'i-heroicons-solid:banknotes',
+    },
+    children: [
+      Finance,
     ],
   },
 ]

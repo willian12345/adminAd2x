@@ -5,20 +5,20 @@ function Layout() {
 }
 
 const routes: RouteRecordRaw = {
-  path: '/user',
+  path: '/finance',
   component: Layout,
-  name: 'user',
+  name: 'finance',
   meta: {
-    title: '用户管理',
-    icon: 'i-heroicons-solid:users',
+    title: '财务管理',
+    icon: 'i-heroicons-solid:banknotes',
   },
   children: [
     {
       path: '',
-      name: 'userIndex',
-      component: () => import('@/views/user/index.vue'),
+      name: 'financeIndex',
+      component: () => import('@/views/finance/index.vue'),
       meta: {
-        title: '用户管理',
+        title: '财务管理',
         breadcrumb: false,
       },
     },

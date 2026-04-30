@@ -5,20 +5,20 @@ function Layout() {
 }
 
 const routes: RouteRecordRaw = {
-  path: '/user',
+  path: '/data_import',
   component: Layout,
-  name: 'user',
+  name: 'dataImport',
   meta: {
-    title: '用户管理',
-    icon: 'i-heroicons-solid:users',
+    title: '数据导入',
+    icon: 'i-heroicons-solid:arrow-up-tray',
   },
   children: [
     {
       path: '',
-      name: 'userIndex',
-      component: () => import('@/views/user/index.vue'),
+      name: 'dataImportIndex',
+      component: () => import('@/views/data-import/index.vue'),
       meta: {
-        title: '用户管理',
+        title: 'tiktok数据导入',
         breadcrumb: false,
       },
     },
